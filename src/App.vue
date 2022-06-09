@@ -1,26 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+    <TheHeader />
+    <v-main>
+      <div id="lol">
+      <router-view></router-view>
+      </div>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TheHeader from './components/TheHeader.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    TheHeader
+  },
+  computed: {
+    didAutoSignout() {
+      return this.$store.getters.didAutoSignout;
+    },
+  },
+  created() {
+    this.$store.dispatch('autoLogin');
+  },
+  watch: {
+    didAutoSignout(curVal, oldVal) {
+      if (curVal && curVal !== oldVal) {
+        this.$router.replace('/');
+      }
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+#lol {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
