@@ -22,5 +22,4 @@ pnpm-debug.log*
 *.sln
 *.sw?
 *.code-workspace
-/node_modules
 readme.md
